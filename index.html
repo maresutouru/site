@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elan Miles</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -45,6 +46,16 @@ button{font-family:inherit;font-size:inherit;background:none;border:none;color:i
 @keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1}}
 
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.whoami{display:flex;align-items:stretch;gap:16px;min-width:0}
+.avatar{
+  align-self:stretch;
+  height:auto;width:auto;
+  aspect-ratio:1;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid var(--border);
+  flex-shrink:0;
+}
 .hello{color:var(--muted)}
 h1{font-size:26px;font-weight:600;letter-spacing:-.02em;margin-top:2px}
 .aka{color:var(--muted);font-size:14px}
@@ -93,10 +104,13 @@ section{margin-top:28px;padding-top:24px;border-top:1px solid var(--border)}
 <main class="card">
 
   <div class="top">
-    <div>
-      <p class="hello" data-i18n="hello"></p>
-      <h1>Elan Miles</h1>
-      <p class="aka" data-i18n="aka"></p>
+    <div class="whoami">
+      <img class="avatar" src="ogi.jpg" alt="Oggy">
+      <div>
+        <p class="hello" data-i18n="hello"></p>
+        <h1>Elan Miles</h1>
+        <p class="aka" data-i18n="aka"></p>
+      </div>
     </div>
     <nav class="lang">
       <button data-lang="en">EN</button>
