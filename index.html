@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elan Miles</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1013;
+  --card:#16171b;
+  --border:#26272d;
+  --text:#e8e6e1;
+  --muted:#8a8894;
+  --accent:#7fa8c9;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  min-height:100svh;
+  background:radial-gradient(1000px 600px at 50% -10%,#191b20,var(--bg));
+  color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:15px;
+  line-height:1.65;
+  padding:48px 16px;
+  display:flex;
+  justify-content:center;
+}
+::selection{background:rgba(127,168,201,.25)}
+a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--border);transition:border-color .2s,color .2s}
+a:hover{color:var(--accent);border-color:var(--accent)}
+button{font-family:inherit;font-size:inherit;background:none;border:none;color:inherit;cursor:pointer}
+
+.card{
+  width:100%;max-width:640px;height:fit-content;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:36px 38px 32px;
+  animation:appear .6s ease both;
+}
+@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1}}
+
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.whoami{display:flex;align-items:stretch;gap:16px;min-width:0}
+.avatar{
+  align-self:stretch;
+  height:auto;width:auto;
+  aspect-ratio:1;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid var(--border);
+  flex-shrink:0;
+}
+.hello{color:var(--muted)}
+h1{font-size:26px;font-weight:600;letter-spacing:-.02em;margin-top:2px}
+.aka{color:var(--muted);font-size:14px}
+.lang{display:flex;gap:4px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:4px}
+.lang button{padding:3px 10px;font-size:12px;color:var(--muted);border-radius:6px;transition:.2s}
+.lang button.active{background:var(--border);color:var(--text)}
+
+section{margin-top:28px;padding-top:24px;border-top:1px solid var(--border)}
+.label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px;padding-top:22px;border-top:1px solid var(--border)}
+.stats div span{display:block}
+.k{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
+.v{font-weight:500;font-size:14.5px}
+.mono{font-variant-numeric:tabular-nums}
+
+.cd-row{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:22px;padding:14px 16px;background:var(--bg);border:1px solid var(--border);border-radius:10px}
+.cd-item span:first-child{font-weight:500}
+.cd-item span:last-child{color:var(--muted)}
+
+.genres{color:var(--muted)}
+
+.links{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+
+.tracks{list-style:none;display:flex;flex-direction:column;gap:8px;counter-reset:t}
+.tracks li{counter-increment:t;display:flex;gap:14px;align-items:baseline}
+.tracks li::before{content:counter(t,decimal-leading-zero);font-size:12px;color:var(--muted);min-width:20px}
+.tracks .artist{color:var(--muted)}
+
+.contact{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px}
+.handle{font-weight:500}
+.copy{font-size:12px;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:6px 14px;transition:.2s}
+.copy:hover{color:var(--accent);border-color:var(--accent)}
+.copy.done{color:var(--accent);border-color:var(--accent)}
+
+.closing{color:var(--muted);font-style:normal;margin-top:4px}
+
+@media (max-width:560px){
+  .card{padding:28px 22px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<main class="card">
+
+  <div class="top">
+    <div class="whoami">
+      <img class="avatar" src="ogi.jpg" alt="Oggy">
+      <div>
+        <p class="hello" data-i18n="hello"></p>
+        <h1>Elan Miles</h1>
+        <p class="aka" data-i18n="aka"></p>
+      </div>
+    </div>
+    <nav class="lang">
+      <button data-lang="en">EN</button>
+      <button data-lang="ru">RU</button>
+    </nav>
+  </div>
+
+  <div class="stats">
+    <div><span class="k" data-i18n="kAge"></span><span class="v">15</span></div>
+    <div><span class="k" data-i18n="kBday"></span><span class="v mono">28.10.2010</span></div>
+    <div><span class="k" data-i18n="kTz"></span><span class="v">GMT+05</span></div>
+    <div><span class="k" data-i18n="kNow"></span><span class="v mono" id="clock">--:--:--</span></div>
+  </div>
+
+  <div class="cd-row">
+    <span class="cd-item" id="countdown"><span>--</span> <span data-i18n="uDays"></span></span>
+    <span class="cd-item" id="cdH"><span>--</span> <span data-i18n="uHours"></span></span>
+    <span class="cd-item" id="cdM"><span>--</span> <span data-i18n="uMin"></span></span>
+    <span class="cd-item" id="cdS"><span>--</span> <span data-i18n="uSec"></span></span>
+  </div>
+
+  <section>
+    <p data-i18n="about1"></p>
+    <p style="margin-top:8px" data-i18n="about2"></p>
+    <p style="margin-top:8px"><span data-i18n="genresIntro"></span> <span class="genres">slushwave, vaporwave, hardcore techno, drone ambient, atmospheric jungle, ambient.</span></p>
+  </section>
+
+  <section>
+    <p class="label" data-i18n="lProjects"></p>
+    <p data-i18n="projectsText"></p>
+    <div class="links" style="margin-top:14px">
+      <a href="https://pk74.bandcamp.com/" target="_blank" rel="noopener">PK74</a>
+      <a href="https://eiennogingennokioku.bandcamp.com/" target="_blank" rel="noopener">永遠の銀河の記憶</a>
+      <a href="https://umunokagami.bandcamp.com/" target="_blank" rel="noopener">有無の鑑</a>
+    </div>
+  </section>
+
+  <section>
+    <p class="label" data-i18n="lArtists"></p>
+    <div class="links">
+      <a href="https://telepathtelepath.bandcamp.com/" target="_blank" rel="noopener">t e l e p a t h テレパシー能力者</a>
+      <a href="https://vaperror.bandcamp.com/" target="_blank" rel="noopener">VAPERROR</a>
+      <a href="https://agonyost.bandcamp.com/" target="_blank" rel="noopener">AgonyOST</a>
+      <a href="https://cynthoni.bandcamp.com/" target="_blank" rel="noopener">Cynthoni</a>
+      <a href="https://goldenlivingroom.bandcamp.com/" target="_blank" rel="noopener">Golden Living Room</a>
+    </div>
+  </section>
+
+  <section>
+    <p class="label" data-i18n="lTracks"></p>
+    <ul class="tracks">
+      <li><span><span class="artist">t e l e p a t h テレパシー能力者: </span>私の夢の女性との時空間連続体の外側の内部の心の肉体ビジョン</span></li>
+      <li><span><span class="artist">t e l e p a t h テレパシー能力者: </span>ハーモニー</span></li>
+      <li><span><span class="artist">VAPERROR: </span>ULTRAFUNK FANTASY</span></li>
+      <li><span><span class="artist">VAPERROR: </span>FREQ</span></li>
+      <li><span><span class="artist">AgonyOST: </span>Des Larmes Et Des Saints</span></li>
+      <li><span><span class="artist">AgonyOST: </span>Muddle Dark Wet Dub</span></li>
+      <li><span><span class="artist">Cynthoni: </span>Enshittification</span></li>
+      <li><span><span class="artist">Cynthoni: </span>Lexapro Pill(s)</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="label" data-i18n="lToon"></p>
+    <p data-i18n="toon"></p>
+  </section>
+
+  <section>
+    <p class="label" data-i18n="lContact"></p>
+    <p data-i18n="contactText"></p>
+    <div class="contact">
+      <span class="handle">elanmiles</span>
+      <button class="copy" id="copyBtn" data-i18n="copy"></button>
+    </div>
+  </section>
+
+  <section>
+    <p class="closing" data-i18n="closing"></p>
+  </section>
+
+</main>
+
+<script>
+const I18N={
+en:{
+  hello:"Hey! I am Malestour!",
+  aka:"my virtual name",
+  kAge:"Age",kBday:"Born",kTz:"Timezone",kNow:"My time",
+  uDays:"days",uHours:"hours",uMin:"min",uSec:"sec",
+  about1:"I live in Perm and I really like my city.",
+  about2:"I am a guy. I was born on October 28, 2010. I am pansexual and objectum. I have ADHD.",
+  genresIntro:"I am really into music. My favorite genres:",
+  lProjects:"My music projects",
+  projectsText:"I write music. It may not be the best quality yet, but I am learning.",
+  lArtists:"Favorite artists",
+  lTracks:"Favorite tracks",
+  lToon:"Favorite cartoon",
+  toon:"Oggy and the Cockroaches",
+  lContact:"Contact",
+  contactText:"Feel free to talk to me anytime, I always reply. Sometimes I answer late only because I am busy, which rarely happens.",
+  copy:"copy",
+  copied:"copied!",
+  closing:"Well, there is nothing more to say for now. Thank you for reading all of this! Good luck)"
+},
+ru:{
+  hello:"Привет! Я Malestour!",
+  aka:"моё виртуальное имя",
+  kAge:"Возраст",kBday:"День рождения",kTz:"Пояс",kNow:"Моё время",
+  uDays:"дней",uHours:"часов",uMin:"минут",uSec:"секунд",
+  about1:"Я живу в Перми, и мой город мне очень нравится.",
+  about2:"Я парень. Родился 28 октября 2010 года. Я пансексуал и objectum. У меня СДВГ.",
+  genresIntro:"Я большой меломан. Мои любимые жанры:",
+  lProjects:"Мои музыкальные проекты",
+  projectsText:"Я пишу музыку. Может быть, не самого лучшего качества, но я учусь.",
+  lArtists:"Любимые артисты",
+  lTracks:"Любимые треки",
+  lToon:"Любимый мультфильм",
+  toon:"Огги и тараканы",
+  lContact:"Связь",
+  contactText:"Чувствуй себя абсолютно свободно в разговоре со мной, я всегда отвечу. Иногда могу задержаться с ответом только потому, что занят, а это случается редко.",
+  copy:"копировать",
+  copied:"скопировано!",
+  closing:"Что ж, пока сказать мне больше нечего. Спасибо, что прочитал всё это! Удачи)"
+}};
+
+let lang="en";
+try{const s=localStorage.getItem("elan_lang");if(s==="en"||s==="ru")lang=s;}catch(e){}
+
+function pad(n){return String(n).padStart(2,"0");}
+
+let target=null;
+function computeTarget(){
+  const now=new Date();
+  const y=now.getUTCFullYear();
+  for(let i=0;i<3;i++){
+    const t=Date.UTC(y+i,9,27,19,0,0);
+    if(t>now.getTime()){target=t;return;}
+  }
+}
+computeTarget();
+
+function tick(){
+  const now=Date.now();
+  const tf=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Yekaterinburg",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"});
+  document.getElementById("clock").textContent=tf.format(new Date(now));
+
+  if(now>=target)computeTarget();
+  let ms=target-now;
+  document.getElementById("countdown").firstChild.textContent=Math.floor(ms/86400000);
+  document.getElementById("cdH").firstChild.textContent=pad(Math.floor(ms%86400000/3600000));
+  document.getElementById("cdM").firstChild.textContent=pad(Math.floor(ms%3600000/60000));
+  document.getElementById("cdS").firstChild.textContent=pad(Math.floor(ms%60000/1000));
+}
+
+function applyLang(){
+  const d=I18N[lang];
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k=el.getAttribute("data-i18n");
+    if(d[k])el.textContent=d[k];
+  });
+  document.documentElement.lang=lang;
+  document.querySelectorAll(".lang button").forEach(b=>{
+    b.classList.toggle("active",b.dataset.lang===lang);
+  });
+}
+
+document.querySelectorAll(".lang button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    lang=b.dataset.lang;
+    try{localStorage.setItem("elan_lang",lang);}catch(e){}
+    applyLang();
+  });
+});
+
+document.getElementById("copyBtn").addEventListener("click",function(){
+  const done=()=>{
+    this.textContent=I18N[lang].copied;
+    this.classList.add("done");
+    setTimeout(()=>{this.textContent=I18N[lang].copy;this.classList.remove("done");},1600);
+  };
+  if(navigator.clipboard){
+    navigator.clipboard.writeText("elanmiles").then(done);
+  }else{
+    const ta=document.createElement("textarea");
+    ta.value="elanmiles";ta.style.position="fixed";ta.style.opacity="0";
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");done();}catch(e){}
+    ta.remove();
+  }
+});
+
+applyLang();
+tick();
+setInterval(tick,1000);
+</script>
+</body>
+</html>
